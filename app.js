@@ -9,7 +9,7 @@ const app = express();
 app.use(bodyParser.json());
 
 // Connect to MongoDB
-mongoose.connect('mongodb+srv://naveengc99:q0VmhfNRAnRcyYTz@cluster0.nbz0bvh.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0',{
+mongoose.connect(process.env.MONGO_URL,{
   useNewUrlParser: true,
   useUnifiedTopology: true,
 }).then(() => {
@@ -17,7 +17,9 @@ mongoose.connect('mongodb+srv://naveengc99:q0VmhfNRAnRcyYTz@cluster0.nbz0bvh.mon
 }).catch((err) => {
   console.error('MongoDB connection error:', err.message);
 });
-
+app.get('/', (req, res)=>{
+  res.send('Hello World');
+})
 
 app.use('/api', agencyRoutes);
 app.use('/api', clientRoutes);
